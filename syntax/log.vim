@@ -23,18 +23,18 @@ syn match logEmptyLines display '- - '
 
 " Constants
 "---------------------------------------------------------------------------
-syn match logNumber       '\<-\?\d\+\>'
-syn match logHexNumber    '\<0[xX]\x\+\>'
-syn match logHexNumber    '\<\d\x\+\>'
-syn match logBinaryNumber '\<0[bB][01]\+\>'
-syn match logFloatNumber  '\<\d.\d\+[eE]\?\>'
+"syn match logNumber       '\<-\?\d\+\>'
+"syn match logHexNumber    '\<0[xX]\x\+\>'
+"syn match logHexNumber    '\<\d\x\+\>'
+"syn match logBinaryNumber '\<0[bB][01]\+\>'
+"syn match logFloatNumber  '\<\d.\d\+[eE]\?\>'
 
 syn keyword logBoolean    TRUE FALSE True False true false
 syn keyword logNull       NULL Null null
 
-syn region logString      start=/"/ end=/"/ end=/$/ skip=/\\./
+"syn region logString      start=/"/ end=/"/ end=/$/ skip=/\\./
 " Quoted strings, but no match on quotes like "don't", "plurals' elements"
-syn region logString      start=/'\(s \|t \| \w\)\@!/ end=/'/ end=/$/ end=/s / skip=/\\./
+"syn region logString      start=/'\(s \|t \| \w\)\@!/ end=/'/ end=/$/ end=/s / skip=/\\./
 
 
 " Dates and Times
@@ -101,6 +101,15 @@ syn keyword logLevelDebug DEBUG FINE
 syn keyword logLevelTrace TRACE FINER FINEST
 
 
+" CDS specify
+"------------------------------
+syn match logFilePath   'baidu\/\w[^\n|,; ()'"\]{}]\+'
+syn match logVolumeId   'volume_\(\w\+-\)\+\w\+'
+syn match logLogId      'log_id: \d\+'
+syn match logRequestId  '\<\d\{1,3}\(\.\d\{1,3}\)\{3}:\d*:\d*\>'
+syn keyword logError    error err fail failed failure timeout retry timed
+syn keyword logSucc     OK ok okay Okay succ successful success
+
 " Highlight links
 "---------------------------------------------------------------------------
 hi def link logNumber Number
@@ -116,13 +125,13 @@ hi def link logTime Function
 hi def link logTimeZone Identifier
 
 hi def link logUrl Underlined
-hi def link logDomain Label
+hi def link logDomain Identifier
 hi def link logUUID Label
 hi def link logMD5 Label
-hi def link logIPV4 Label
+hi def link logIPV4 Identifier
 hi def link logIPV6 ErrorMsg
 hi def link logMacAddress Label
-hi def link logFilePath Conditional
+hi def link logFilePath Comment
 
 hi def link logSysColumns Conditional
 hi def link logSysProcess Include
@@ -144,11 +153,17 @@ hi def link logLevelEmergency ErrorMsg
 hi def link logLevelAlert ErrorMsg
 hi def link logLevelCritical ErrorMsg
 hi def link logLevelError ErrorMsg
-hi def link logLevelWarning WarningMsg
+hi def link logLevelWarning ErrorMsg
 hi def link logLevelNotice Character
 hi def link logLevelInfo Repeat
 hi def link logLevelDebug Debug
 hi def link logLevelTrace Comment
+
+hi def link logVolumeId Identifier
+hi def link logLogId Identifier
+hi def link logRequestId Identifier
+hi def link logError conditional 
+hi def link logSucc Label
 
 
 
